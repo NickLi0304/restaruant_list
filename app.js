@@ -1,7 +1,5 @@
-// Include express from node_modules
 const express = require("express");
 const app = express();
-
 // Define server related variables
 const port = 3000;
 
@@ -29,13 +27,14 @@ app.get("/restaurants/:restaurant_id", (req, res) => {
 
 app.get("/search", (req, res) => {
   const keyword = req.query.keyword.trim();
-  const restaurants = restaurantList.results.filter((restaurant) => {
+  const filterRestaurants = restaurantList.results.filter((restaurant) => {
     return (
       restaurant.name.toLowerCase().includes(keyword.toLowerCase()) ||
       restaurant.category.toLowerCase().includes(keyword.toLowerCase())
     );
   });
-  res.render("index", { restaurants: restaurants, keyword: keyword });
+
+  res.render("index", { restaurants: filterRestaurants, keyword: keyword });
 });
 
 app.listen(port, () => {

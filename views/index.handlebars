@@ -15,9 +15,12 @@
             aria-describedby="search-button"
           />
           <div class="input-group-append">
-            <button class="btn btn-major" type="submit" id="search-button"><i
-                class="fa-solid fa-search"
-              ></i></button>
+            <button
+              class="btn btn-major"
+              type="submit"
+              onclick="confirmKeyword()"
+              id="search-button"
+            ><i class="fa-solid fa-search"></i></button>
           </div>
         </div>
       </form>
@@ -47,7 +50,7 @@
                   {{this.category}}
                 </div>
 
-                <span class="badge badge-pill badge-danger font-weight-normal">
+                <span class="badge text-bg-light">
                   {{this.rating}}
                   <i class="fa-solid fa-star fa-xs"></i>
                 </span>
