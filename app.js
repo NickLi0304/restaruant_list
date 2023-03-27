@@ -75,6 +75,15 @@ app.post("/restaurants/:restaurant_id", (req, res) => {
     .catch((err) => console.log(err));
 });
 
+// 刪除餐廳
+app.post("/restaurants/:restaurant_id/delete", (req, res) => {
+  const id = req.params.restaurant_id;
+  Restaurant.findById(id)
+    .then((restaurant) => restaurant.remove())
+    .then(() => res.redirect("/"))
+    .catch((err) => console.log(err));
+});
+
 app.get("/search", (req, res) => {
   const keyword = req.query.keyword.trim();
   const filterRestaurants = restaurantList.results.filter((restaurant) => {

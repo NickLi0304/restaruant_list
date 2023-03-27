@@ -69,6 +69,16 @@
                   href="/restaurants/{{this._id}}/edit"
                   role="button"
                 >Edit</a>
+                <form
+                  class="mb-0"
+                  action="/restaurants/{{this._id}}/delete"
+                  method="POST"
+                >
+                  <button
+                    type="submit"
+                    class="btn btn-danger btn-sm text-white ms-2"
+                  >delete</button>
+                </form>
               </div>
             </div>
           </div>
