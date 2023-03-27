@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const restaurant = require("../restaurant");
+const Restaurant = require("../restaurant");
 const restaurantList = require("../../restaurant.json").results;
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -14,7 +14,7 @@ db.on("error", () => {
   console.log("mongodb error!");
 });
 db.once("open", () => {
-  restaurant
+  Restaurant
     .create(restaurantList)
     .then(() => {
       console.log("restaurantSeeder done!");

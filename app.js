@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const Restaurant = require("./models/restaurant");
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
@@ -33,7 +34,10 @@ app.use(express.static("public"));
 
 // routes setting
 app.get("/", (req, res) => {
-  res.render("index", { restaurants: restaurantList.results });
+  Restaurant.find()
+    .lean()
+    .then((restaurants) => res.render("index", { restaurants }))
+    .catch((error) => console.log("error"));
 });
 
 app.get("/restaurants/:restaurant_id", (req, res) => {
