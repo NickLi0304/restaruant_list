@@ -83,17 +83,26 @@ app.post("/restaurants/:restaurant_id/delete", (req, res) => {
     .then(() => res.redirect("/"))
     .catch((err) => console.log(err));
 });
-
+// 搜尋特定餐廳
 app.get("/search", (req, res) => {
-  const keyword = req.query.keyword.trim();
-  const filterRestaurants = restaurantList.results.filter((restaurant) => {
-    return (
-      restaurant.name.toLowerCase().includes(keyword.toLowerCase()) ||
-      restaurant.category.toLowerCase().includes(keyword.toLowerCase())
-    );
-  });
+  if (!req.query.keywords) {
+    res.redirect("/");
+  }
 
-  res.render("index", { restaurants: filterRestaurants, keyword: keyword });
+  const keywords = req.query.keywords;
+  const keyword = req.query.keywords.trim().toLowerCase();
+
+  Restaurant.find({})
+    .lean()
+    .then((restaurants) => {
+      const filterRestaurantsData = restaurants.filter(
+        (data) =>
+          data.name.toLowerCase().includes(keyword) ||
+          data.category.includes(keyword)
+      );
+      res.render("index", { restaurants: filterRestaurantsData, keywords });
+    })
+    .catch((err) => console.log(err));
 });
 
 app.listen(port, () => {
