@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Restaurant = require("./models/restaurant");
+const bodyParser = require("body-parser");
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
@@ -31,6 +32,7 @@ app.set("view engine", "handlebars");
 
 // setting static files
 app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // routes setting
 app.get("/", (req, res) => {
@@ -38,6 +40,16 @@ app.get("/", (req, res) => {
     .lean()
     .then((restaurants) => res.render("index", { restaurants }))
     .catch((error) => console.log("error"));
+});
+
+app.get('/restaurant/new', (req,res) => {
+  return res.render('new')
+})
+
+app.post("/restaurants", (req, res) => {
+  Restaurant.create(req.body)
+    .then(() => res.redirect("/"))
+    .catch((err) => console.log(err));
 });
 
 app.get("/restaurants/:restaurant_id", (req, res) => {

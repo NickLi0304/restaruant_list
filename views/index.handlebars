@@ -3,27 +3,29 @@
   <div class="search-bar-outer">
     <div class="search-bar-inner">
       <form action="/search">
-        <h4 class="mb-2">尋找餐廳：</h4>
-        <div class="input-group">
+        <h3 class="mb-2">尋找餐廳：</h3>
+        <div class="input-group mb-3">
           <input
             type="text"
-            name="keyword"
+            name="keywords"
             class="form-control"
             placeholder="輸入餐廳、分類"
             aria-label="Restaurant Name..."
-            value="{{keyword}}"
-            aria-describedby="search-button"
+            aria-describedby="button-addon2"
+            value="{{keywords}}"
           />
-          <div class="input-group-append">
-            <button
-              class="btn btn-major"
-              type="submit"
-              onclick="confirmKeyword()"
-              id="search-button"
-            ><i class="fa-solid fa-search"></i></button>
-          </div>
+          <button class="btn btn-danger" type="submit" id="search-button"><i
+              class="fas fa-search"
+            ></i></button>
         </div>
       </form>
+      <div class="text-end">
+        <a
+          class="btn btn-primary"
+          href="./restaurant/new"
+          role="button"
+        >推薦新餐廳</a>
+      </div>
     </div>
   </div>
 </div>
