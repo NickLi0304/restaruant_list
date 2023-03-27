@@ -59,6 +59,21 @@ app.get("/restaurants/:restaurant_id", (req, res) => {
     .then((restaurant) => res.render("show", { restaurant }))
     .catch((err) => console.log(err));
 });
+//進入更新資料頁面
+app.get("/restaurants/:restaurant_id/edit", (req, res) => {
+  const id = req.params.restaurant_id;
+  Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render("edit", { restaurant }))
+    .catch((err) => console.log(err));
+});
+//更新資料
+app.post("/restaurants/:restaurant_id", (req, res) => {
+  const id = req.params.restaurant_id;
+  Restaurant.findByIdAndUpdate(id, req.body)
+    .then(() => res.redirect(`/restaurants/${id}`))
+    .catch((err) => console.log(err));
+});
 
 app.get("/search", (req, res) => {
   const keyword = req.query.keyword.trim();
