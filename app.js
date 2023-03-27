@@ -42,9 +42,9 @@ app.get("/", (req, res) => {
     .catch((error) => console.log("error"));
 });
 
-app.get('/restaurant/new', (req,res) => {
-  return res.render('new')
-})
+app.get("/restaurant/new", (req, res) => {
+  return res.render("new");
+});
 
 app.post("/restaurants", (req, res) => {
   Restaurant.create(req.body)
@@ -53,10 +53,11 @@ app.post("/restaurants", (req, res) => {
 });
 
 app.get("/restaurants/:restaurant_id", (req, res) => {
-  const restaurant = restaurantList.results.find(
-    (restaurant) => restaurant.id.toString() === req.params.restaurant_id
-  );
-  res.render("show", { restaurant: restaurant });
+  const id = req.params.restaurant_id;
+  Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render("show", { restaurant }))
+    .catch((err) => console.log(err));
 });
 
 app.get("/search", (req, res) => {
