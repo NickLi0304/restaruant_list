@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const Restaurant = require("./models/restaurant");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override"); 
@@ -9,23 +8,12 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const routes = require("./routes");
+require("./config/mongoose");
+
 const app = express();
-// Define server related variables
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}); //設定連線到mongoDB
 
 const port = 3000;
 
-const db = mongoose.connection;
-db.on("error", () => {
-  console.log("mongodb error!");
-});
-
-db.once("open", () => {
-  console.log("mongodb connected!");
-});
 
 // require handlebars in the project
 const exphbs = require("express-handlebars");
