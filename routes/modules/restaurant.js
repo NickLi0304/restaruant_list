@@ -63,8 +63,8 @@ router.put("/:restaurant_id", (req, res) => {
 
 // 刪除餐廳
 router.delete("/:restaurant_id", (req, res) => {
-  const { restaurantId } = req.params;
-  Restaurant.findByIdAndDelete(restaurantId)
+  const id = req.params.restaurant_id;
+  Restaurant.findByIdAndDelete(id)
     .then(() => res.redirect("/"))
     .catch((err) => console.log(err));
 });
